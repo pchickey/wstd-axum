@@ -1,0 +1,11 @@
+[package]
+name = "wstd-axum"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = { version = "0.8.6", default-features = false }
+tower = { version = "0.5.2", default-features = false, features = [] }
+tower-service = "0.3.3"
+wstd = { path = "../wstd" }
+wstd-axum-macro = { path = "macro" }
