@@ -6,7 +6,7 @@ use tower_service::Service;
 pub use wstd_axum_macro::attr_macro_http_server as http_server;
 
 pub async fn serve<S>(
-    request: wstd::http::Request<wstd::http::Incoming>,
+    request: wstd::http::Request<wstd::http::Body>,
     mut service: S,
 ) -> wstd::http::error::Result<wstd::http::Response<wstd::http::Body>>
 where
@@ -15,8 +15,8 @@ where
 {
     let resp = service
         .call(
-            request.map(|incoming: wstd::http::Incoming| -> axum::body::Body {
-                axum::body::Body::new(incoming.into_http_body())
+            request.map(|incoming: wstd::http::Body| -> axum::body::Body {
+                axum::body::Body::new(incoming.into_boxed_body())
             }),
         )
         .await
