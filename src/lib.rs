@@ -21,5 +21,7 @@ where
         )
         .await
         .unwrap_or_else(|err| match err {});
-    Ok(resp.map(|body: axum::body::Body| -> wstd::http::Body { body.into() }))
+    Ok(resp.map(|body: axum::body::Body| -> wstd::http::Body {
+        wstd::http::Body::from_http_body(body)
+    }))
 }
